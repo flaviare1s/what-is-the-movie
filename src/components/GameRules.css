@@ -18,6 +18,10 @@
     border-bottom: 2px solid #FFD700;
 }
 
+.rules ul {
+    margin-left: -20px;
+}
+
 .rules li::marker {
     color: #FFD700;
 }
