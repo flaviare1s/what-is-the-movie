@@ -1,6 +1,6 @@
 # What's the Movie? 🎬
 
-English | [Português](./README.md)
+English | [Português](./README.pt.md)
 
 ## 📖 About the Project
 
