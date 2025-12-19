@@ -226,10 +226,10 @@ export function Game({ moviesData, onBackToMenu }) {
               <p>You lost a life!</p>
               <p>Do you want another hint or do you want to change the movie?</p>
               <p>
-                <button onClick={() => handleOptionClick('retry')}>Continue</button>
+                    <button style={{ width: '230px' }} onClick={() => handleOptionClick('retry')}>Continue</button>
               </p>
               <p>
-                <button onClick={() => handleOptionClick('changeMovie')}>Change movie</button>
+                <button style={{ width: '230px' }} onClick={() => handleOptionClick('changeMovie')}>Change movie</button>
               </p>
             </div>
           )}
