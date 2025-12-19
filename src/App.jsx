@@ -1,10 +1,7 @@
 import './App.css'
-
 import { useState } from 'react'
-
 import { StartScreen } from './components/StartScreen'
 import { Game } from './components/Game'
-
 import moviesData from './moviesData.json'
 import { Toaster } from 'react-hot-toast'
 
@@ -19,9 +16,13 @@ export function App() {
   const [shuffledMovies, setShuffledMovies] = useState([])
 
   const startGame = () => {
-   
+
     setShuffledMovies(shuffleMovies())
     setGameStage(stages[1].name)
+  }
+
+  const backToMenu = () => {
+    setGameStage(stages[0].name)
   }
 
   const shuffleMovies = () => {
@@ -34,7 +35,7 @@ export function App() {
     <div className='App'>
       <div className="overlay" />
       {gameStage === 'start' && <StartScreen startGame={startGame} />}
-      {gameStage === 'game' && <Game moviesData={shuffledMovies} />}
+      {gameStage === 'game' && <Game moviesData={shuffledMovies} onBackToMenu={backToMenu} />}
       <Toaster position='top-center' />
     </div>
   )
