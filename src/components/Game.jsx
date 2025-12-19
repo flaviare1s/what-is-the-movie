@@ -191,7 +191,9 @@ export function Game({ moviesData, onBackToMenu }) {
             <div className='start-game'>
               <GameHeader score={score} lives={lives} remainingHints={remainingHints} />
 
-              <p className='hints_control'><FaLightbulb className="bulb-hint" />{currentMovie.hints[currentHintIndex]}</p>
+              {currentMovie.hints.length > 0 && currentHintIndex < currentMovie.hints.length &&
+                <p className='hints_control'><FaLightbulb className="bulb-hint" />{currentMovie.hints[currentHintIndex]}</p>
+              }
 
               {congratulationsMessage && <p>{congratulationsMessage}</p>}
               {lossMessage && <p>{lossMessage}</p>}
