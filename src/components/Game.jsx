@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import './Game.css'
 import { useState , useEffect} from 'react'
 
