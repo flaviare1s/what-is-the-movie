@@ -1,4 +1,4 @@
-# Whats The Movie? 🎬
+# Qual é o Filme? 🎬
 
 [Português](./README.pt.md) | English
 
