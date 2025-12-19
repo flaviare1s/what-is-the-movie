@@ -13,7 +13,7 @@ export function Statistics({ currentScore, onBackToMenu, isVictory = false }) {
 
   return (
     <div className='statistics'>
-      <h1>{isVictory ? '🎉 Congratulations!' : 'Statistics'}</h1>
+      <h1>{isVictory ? '🎉 Congratulations!' : 'Game Over!'}</h1>
       {isVictory && <p className='victory-message'>Congratulations!</p>}
 
       <div className='stats-container'>
