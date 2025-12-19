@@ -28,7 +28,7 @@ export function Game({ moviesData }) {
     console.log('Handling guess:', userGuess);
     if (!hasGuessed) {
       if (!userGuess.trim()) {
-        toast.error('Please make a guess!');
+        toast.error('Please, make a guess!');
         return;
       }
 
@@ -40,7 +40,7 @@ export function Game({ moviesData }) {
         setScore(score + pointsEarned);
 
         if (currentMovieIndex < moviesData.length - 1) {
-          toast.success(`Congratulations! ${pointsEarned} points earned!`);
+          toast.success(`Congratulations! ${pointsEarned} points added!`);
           setTimeout(() => {
             setCurrentMovieIndex(currentMovieIndex + 1);
             setCurrentHintIndex(0);
@@ -50,7 +50,7 @@ export function Game({ moviesData }) {
             setGuess('');
           }, 500);
         } else {
-          setCongratulationsMessage('You finished the game!');
+          setCongratulationsMessage('You have finished the game!');
           setShowOptions(true);
         }
       } else {
@@ -91,7 +91,7 @@ export function Game({ moviesData }) {
         setHasGuessed(false)
         setShowHints(true)
       } else {
-        setCongratulationsMessage('Congratulations! You finished the game!')
+        setCongratulationsMessage('You have finished the game!')
         setShowOptions(true)
       }
     }
@@ -130,54 +130,56 @@ export function Game({ moviesData }) {
   }, [lives, congratulationsMessage])
 
   return (
-    <div className='start-game'>
+    <>
       {lives > 0 ? (
         <>
-          <GameHeader score={score} lives={lives} remainingHints={remainingHints} />
+          {!showOptions ? (
+            <div className='start-game'>
+              <GameHeader score={score} lives={lives} remainingHints={remainingHints} />
 
-          <p className='hints_control'><FaLightbulb className="header-icon bulb-icon" />{currentMovie.hints[currentHintIndex]}</p>
+              <p className='hints_control'><FaLightbulb className="bulb-hint" />{currentMovie.hints[currentHintIndex]}</p>
 
-          {congratulationsMessage && <p>{congratulationsMessage}</p>}
-          {lossMessage && <p>{lossMessage}</p>}
+              {congratulationsMessage && <p>{congratulationsMessage}</p>}
+              {lossMessage && <p>{lossMessage}</p>}
 
-          {showGuessBox && !showOptions && (
-            <form onSubmit={handleGuessSubmit}>
-              <label>
-                <p className='guess_text'>Guess the movie: </p>
-                <input className='guess_box' type="text" value={guess} onChange={handleGuessChange} placeholder="Enter your guess" />
-              </label>
-              <p>
-                <button type="submit">Submit</button>
-              </p>
-            </form>
-          )}
+              {showGuessBox && (
+                <form onSubmit={handleGuessSubmit}>
+                  <label>
+                    <p className='guess_text'>Guess the movie: </p>
+                    <input className='guess_box' type="text" value={guess} onChange={handleGuessChange} placeholder="Type your answer..." />
+                  </label>
+                  <p>
+                    <button type="submit">Guess</button>
+                  </p>
+                </form>
+              )}
 
-          {showOptions && (
-            <div className='options-container'>
-              <p>Do you want another hint or want to change the movie?</p>
-              <p>
-                <button onClick={() => handleOptionClick('retry')}>Continuar</button>
-              </p>
-              <p>
-                <button onClick={() => handleOptionClick('changeMovie')}>Mudar filme</button>
-              </p>
+              {showHints && (
+                <div>
+                  <h3>Hints:</h3>
+                  <ol className='hints_box'>
+                    {currentMovie.hints.slice(0, currentHintIndex + 1).map((hint, index) => (
+                      <li key={index}>{hint}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
             </div>
-          )}
-
-          {showHints && (
-            <div>
-              <h3>Hints:</h3>
-              <ol className='hints_box'>
-                {currentMovie.hints.slice(0, currentHintIndex + 1).map((hint, index) => (
-                  <li key={index}>{hint}</li>
-                ))}
-              </ol>
+          ) : !congratulationsMessage && (
+            <div className='options-container'>
+              <p>Do you want another hint or do you want to change the movie?</p>
+              <p>
+                <button onClick={() => handleOptionClick('retry')}>Continue</button>
+              </p>
+              <p>
+                <button onClick={() => handleOptionClick('changeMovie')}>Change movie</button>
+              </p>
             </div>
           )}
         </>
       ) : (
         <GameOver onRestart={handleRestart} />
       )}
-    </div>
+    </>
   )
 }
