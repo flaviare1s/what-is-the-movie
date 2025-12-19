@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import './Game.css'
 import { useState, useEffect } from 'react'
@@ -191,9 +192,13 @@ export function Game({ moviesData, onBackToMenu }) {
             <div className='start-game'>
               <GameHeader score={score} lives={lives} remainingHints={remainingHints} />
 
-              {currentMovie.hints.length > 0 && currentHintIndex < currentMovie.hints.length &&
-                <p className='hints_control'><FaLightbulb className="bulb-hint" />{currentMovie.hints[currentHintIndex]}</p>
-              }
+                {currentMovie.hints.length > 0 && currentHintIndex < currentMovie.hints.length ? (
+                  <p className='hints_control'><FaLightbulb className="bulb-hint" />{currentMovie.hints[currentHintIndex]}</p>
+                ) : currentHintIndex >= currentMovie.hints.length && (
+                  <p style={{ color: '#ff6b6b', fontWeight: 'bold', fontSize: '18px', marginTop: '20px' }}>
+                    No more hints!
+                  </p>
+                )}
 
               {congratulationsMessage && <p>{congratulationsMessage}</p>}
               {lossMessage && <p>{lossMessage}</p>}
@@ -201,7 +206,7 @@ export function Game({ moviesData, onBackToMenu }) {
               {showGuessBox && (
                 <form onSubmit={handleGuessSubmit}>
                   <label>
-                    <p className='guess_text'>Guess the movie: </p>
+                    <p className='guess_text'>What's the movie? </p>
                     <input className='guess_box' type="text" value={guess} onChange={handleGuessChange} placeholder="Type your guess..." />
                   </label>
                   <p>
@@ -210,11 +215,11 @@ export function Game({ moviesData, onBackToMenu }) {
                 </form>
               )}
 
-              {showHints && (
+                {showHints && currentHintIndex > 0 && (
                 <div>
-                  <h3>Hints:</h3>
+                  <h3 className='previous_hints'>Previous hints:</h3>
                   <ol className='hints_box'>
-                    {currentMovie.hints.slice(0, currentHintIndex + 1).map((hint, index) => (
+                    {currentMovie.hints.slice(0, currentHintIndex).map((hint, index) => (
                       <li key={index}>{hint}</li>
                     ))}
                   </ol>
